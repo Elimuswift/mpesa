@@ -1,11 +1,11 @@
 <?php
 
-namespace SmoDav\Mpesa\Native;
+namespace Elimuswift\Mpesa\Native;
 
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 
 /**
- * Class NativeConfig
+ * Class NativeConfig.
  *
  * @category PHP
  *
@@ -27,9 +27,9 @@ class NativeConfig implements ConfigurationStore
      */
     public function __construct()
     {
-        $defaultConfig = require __DIR__ . '/../../../config/mpesa.php';
-        $userConfig    = __DIR__ . '/../../../../../../config/mpesa.php';
-        $custom        = [];
+        $defaultConfig = require __DIR__.'/../../../config/mpesa.php';
+        $userConfig = __DIR__.'/../../../../../../config/mpesa.php';
+        $custom = [];
         if (\is_file($userConfig)) {
             $custom = require $userConfig;
         }
@@ -54,5 +54,13 @@ class NativeConfig implements ConfigurationStore
         }
 
         return $default;
+    }
+
+    /**
+     * Set config value.
+     **/
+    public function set($key, $value)
+    {
+        $this->config[$key] = $value;
     }
 }

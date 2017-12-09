@@ -1,18 +1,17 @@
 <?php
 
-namespace SmoDav\Mpesa\Laravel;
+namespace Elimuswift\Mpesa\Laravel;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use Illuminate\Support\ServiceProvider as RootProvider;
-use SmoDav\Mpesa\C2B\Identity;
-use SmoDav\Mpesa\C2B\Registrar;
-use SmoDav\Mpesa\C2B\STK;
-use SmoDav\Mpesa\Contracts\CacheStore;
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Laravel\Stores\LaravelCache;
-use SmoDav\Mpesa\Laravel\Stores\LaravelConfig;
+use Elimuswift\Mpesa\C2B\Identity;
+use Elimuswift\Mpesa\C2B\Registrar;
+use Elimuswift\Mpesa\C2B\STK;
+use Elimuswift\Mpesa\Contracts\CacheStore;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Laravel\Stores\LaravelCache;
+use Elimuswift\Mpesa\Laravel\Stores\LaravelConfig;
 
 class ServiceProvider extends RootProvider
 {
@@ -22,7 +21,10 @@ class ServiceProvider extends RootProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../../../config/mpesa.php' => config_path('mpesa.php')
+            __DIR__.'/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
+        ]);
+        $this->publishes([
+            __DIR__.'/../../../assets/keys/cert.cer' => storage_path('mpesa_public.key'),
         ]);
     }
 
@@ -32,7 +34,6 @@ class ServiceProvider extends RootProvider
     public function register()
     {
         $this->bindInstances();
-
         $this->registerFacades();
     }
 
@@ -44,7 +45,7 @@ class ServiceProvider extends RootProvider
             $config = $app->make(ConfigurationStore::class);
             $cache = $app->make(CacheStore::class);
 
-            return new Core(new Client, $config, $cache);
+            return new Core(new Client(), $config, $cache);
         });
     }
 

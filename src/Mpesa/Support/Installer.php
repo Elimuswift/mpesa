@@ -1,6 +1,6 @@
 <?php
 
-namespace SmoDav\Mpesa\Support;
+namespace Elimuswift\Mpesa\Support;
 
 use Composer\Script\Event;
 

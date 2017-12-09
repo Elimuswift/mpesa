@@ -1,9 +1,9 @@
 <?php
 
-namespace SmoDav\Mpesa\Laravel\Stores;
+namespace Elimuswift\Mpesa\Laravel\Stores;
 
 use Illuminate\Cache\Repository;
-use SmoDav\Mpesa\Contracts\CacheStore;
+use Elimuswift\Mpesa\Contracts\CacheStore;
 
 /**
  * Class LaravelCache

@@ -1,17 +1,17 @@
 <?php
 
-namespace SmoDav\Mpesa\Tests\Unit;
+namespace Elimuswift\Mpesa\Tests\Unit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use SmoDav\Mpesa\Auth\Authenticator;
+use Elimuswift\Mpesa\Auth\Authenticator;
 use PHPUnit\Framework\TestCase;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Exceptions\ConfigurationException;
-use SmoDav\Mpesa\Native\NativeCache;
-use SmoDav\Mpesa\Native\NativeConfig;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Exceptions\ConfigurationException;
+use Elimuswift\Mpesa\Native\NativeCache;
+use Elimuswift\Mpesa\Native\NativeConfig;
 
 class AuthenticatorTest extends TestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace SmoDav\Mpesa\Repositories;
+namespace Elimuswift\Mpesa\Repositories;
 
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
-use SmoDav\Mpesa\Exceptions\ConfigurationException;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Exceptions\ConfigurationException;
 
 /**
  * Class EndpointsRepository.

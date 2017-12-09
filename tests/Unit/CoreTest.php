@@ -1,12 +1,12 @@
 <?php
 
-namespace SmoDav\Mpesa\Tests\Unit;
+namespace Elimuswift\Mpesa\Tests\Unit;
 
-use SmoDav\Mpesa\Tests\TestCase;
+use Elimuswift\Mpesa\Tests\TestCase;
 use GuzzleHttp\ClientInterface;
-use SmoDav\Mpesa\Auth\Authenticator;
-use SmoDav\Mpesa\Contracts\CacheStore;
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Auth\Authenticator;
+use Elimuswift\Mpesa\Contracts\CacheStore;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 
 class CoreTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use SmoDav\Mpesa\Repositories\EndpointsRepository;
+use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 function mpesa_endpoint($endpoint)
 {

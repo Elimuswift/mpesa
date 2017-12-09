@@ -1,6 +1,6 @@
 <?php
 
-namespace SmoDav\Mpesa\Contracts;
+namespace Elimuswift\Mpesa\Contracts;
 
 /**
  * Interface CacheStore

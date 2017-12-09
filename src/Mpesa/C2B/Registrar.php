@@ -1,11 +1,11 @@
 <?php
 
-namespace SmoDav\Mpesa\C2B;
+namespace Elimuswift\Mpesa\C2B;
 
 use GuzzleHttp\Exception\RequestException;
 use InvalidArgumentException;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Repositories\EndpointsRepository;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 /**
  * Class Registrar.

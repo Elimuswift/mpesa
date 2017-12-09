@@ -1,6 +1,6 @@
 <?php
 
-namespace SmoDav\Mpesa\Laravel\Facades;
+namespace Elimuswift\Mpesa\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

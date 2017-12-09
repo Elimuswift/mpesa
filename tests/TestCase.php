@@ -1,14 +1,14 @@
 <?php
 
-namespace SmoDav\Mpesa\Tests;
+namespace Elimuswift\Mpesa\Tests;
 
 use Mockery;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase as PHPUnit;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Native\NativeCache;
-use SmoDav\Mpesa\Native\NativeConfig;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Native\NativeCache;
+use Elimuswift\Mpesa\Native\NativeConfig;
 
 class TestCase extends PHPUnit
 {

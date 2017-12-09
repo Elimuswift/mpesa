@@ -1,9 +1,9 @@
 <?php
 
-namespace SmoDav\Mpesa\Laravel\Stores;
+namespace Elimuswift\Mpesa\Laravel\Stores;
 
 use Illuminate\Config\Repository;
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 
 /**
  * Class LaravelConfig

@@ -1,12 +1,12 @@
 <?php
 
-namespace SmoDav\Mpesa\Auth;
+namespace Elimuswift\Mpesa\Auth;
 
 use GuzzleHttp\Exception\RequestException;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Exceptions\ErrorException;
-use SmoDav\Mpesa\Exceptions\ConfigurationException;
-use SmoDav\Mpesa\Repositories\EndpointsRepository;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Exceptions\ErrorException;
+use Elimuswift\Mpesa\Exceptions\ConfigurationException;
+use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 /**
  * Class Authenticator.

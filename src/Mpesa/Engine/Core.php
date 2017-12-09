@@ -1,12 +1,12 @@
 <?php
 
-namespace SmoDav\Mpesa\Engine;
+namespace Elimuswift\Mpesa\Engine;
 
 use GuzzleHttp\ClientInterface;
-use SmoDav\Mpesa\Auth\Authenticator;
-use SmoDav\Mpesa\Contracts\CacheStore;
-use SmoDav\Mpesa\Contracts\ConfigurationStore;
-use SmoDav\Mpesa\Repositories\EndpointsRepository;
+use Elimuswift\Mpesa\Auth\Authenticator;
+use Elimuswift\Mpesa\Contracts\CacheStore;
+use Elimuswift\Mpesa\Contracts\ConfigurationStore;
+use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 /**
  * Class Core.

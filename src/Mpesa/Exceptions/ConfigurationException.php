@@ -1,6 +1,6 @@
 <?php
 
-namespace SmoDav\Mpesa\Exceptions;
+namespace Elimuswift\Mpesa\Exceptions;
 
 use Exception;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace SmoDav\Mpesa\C2B;
+namespace Elimuswift\Mpesa\C2B;
 
 use Carbon\Carbon;
 use GuzzleHttp\Exception\RequestException;
-use SmoDav\Mpesa\Engine\Core;
-use SmoDav\Mpesa\Repositories\EndpointsRepository;
+use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 class STK
 {
