@@ -131,7 +131,8 @@ class MpesaWebHookController extends BaseController
         \Log::log('critical', $data);
         file_put_contents(storage_path('logs/mpesa.log'), $data);
 
-        return $request->all();
+        return response()->json(['ResultCode' => 0,
+                  'ResultDesc' => 'Confirmation recieved successfully', ]);
     }
 
     /**
