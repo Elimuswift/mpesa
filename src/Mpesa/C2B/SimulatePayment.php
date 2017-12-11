@@ -77,6 +77,15 @@ class SimulatePayment
         $this->reference = $reference;
     }
 
+    /**
+     * Simulate an mpesa paybill payment from customer.
+     *
+     * @param float|int $amount
+     * @param int       $number
+     * @param string    $reference
+     *
+     * @return object
+     */
     public function simulate($amount, $number, $reference)
     {
         $shortCode = $this->engine->config->get('mpesa.short_code');

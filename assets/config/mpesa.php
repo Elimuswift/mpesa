@@ -55,7 +55,7 @@ return [
 
     'cache_location' => 'cache',
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | STK Callback URL
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'stk_callback' => 'http://payments.smodavproductions.com/checkout.php',
+    'stk_callback' => url('mpesa/callbacks/stk-push/response'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'id_validation_callback' => 'http://payments.smodavproductions.com/checkout.php',
+    'id_validation_callback' => url('mpesa/callbacks/confirmation/response'),
 
     /*
     |--------------------------------------------------------------------------
