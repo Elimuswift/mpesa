@@ -34,14 +34,11 @@ class SecurityCredentialGenerator implements GeneratorInterface
      **/
     public function generate()
     {
-        return $this->mpesa->cache->get('mpesa.security_credential', function () {
-            $publicKey = file_get_contents($this->mpesa->config->get('mpesa.public_key'));
-            $password = $this->mpesa->config->get('mpesa.initiator_password');
-            openssl_public_encrypt($password, $encrypted, $publicKey, OPENSSL_PKCS1_PADDING);
-            $securityCredential = base64_encode($encrypted);
-            $this->mpesa->cache->put('mpesa.security_credential', $securityCredential, 15);
+        $publicKey = file_get_contents($this->mpesa->config->get('mpesa.public_key'));
+        $password = $this->mpesa->config->get('mpesa.initiator_password');
+        openssl_public_encrypt($password, $encrypted, $publicKey, OPENSSL_PKCS1_PADDING);
+        $securityCredential = base64_encode($encrypted);
 
-            return $securityCredential;
-        });
+        return $securityCredential;
     }
 }

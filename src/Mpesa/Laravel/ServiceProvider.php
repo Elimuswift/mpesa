@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider as RootProvider;
 use Elimuswift\Mpesa\C2B\Identity;
 use Elimuswift\Mpesa\C2B\Registrar;
-use Elimuswift\Mpesa\C2B\STK;
+use Elimuswift\Mpesa\C2B\Charge;
 use Elimuswift\Mpesa\Contracts\CacheStore;
 use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 use Elimuswift\Mpesa\Engine\Core;
@@ -52,20 +52,14 @@ class ServiceProvider extends RootProvider
 
     private function registerFacades()
     {
-        $this->app->bind('mp_stk', function () {
-            return $this->app->make(STK::class);
+        $this->app->bind('mpesa.charge', function () {
+            return $this->app->make(Charge::class);
         });
-
-        $this->app->bind('mp_registrar', function () {
+        $this->app->bind('mpesa.registrar', function () {
             return $this->app->make(Registrar::class);
         });
-
-        $this->app->bind('mp_identity', function () {
+        $this->app->bind('mpesa.identity', function () {
             return $this->app->make(Identity::class);
         });
-
-        //        $this->app->bind('mpesa', function () {
-//            return $this->app->make(Cashier::class);
-//        });
     }
 }

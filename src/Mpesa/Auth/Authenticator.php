@@ -44,7 +44,7 @@ class Authenticator
      */
     public function __construct(Core $core)
     {
-        $this->engine   = $core;
+        $this->engine = $core;
         $this->endpoint = EndpointsRepository::build(MPESA_AUTH);
         self::$instance = $this;
     }
@@ -64,7 +64,7 @@ class Authenticator
 
         try {
             $response = $this->makeRequest();
-            $body     = \json_decode($response->getBody());
+            $body = \json_decode($response->getBody());
             $this->saveCredentials($body);
 
             return $body->access_token;
@@ -72,7 +72,7 @@ class Authenticator
             $message = $exception->getResponse() ?
                $exception->getResponse()->getReasonPhrase() :
                $exception->getMessage();
-            
+
             throw $this->generateException($message);
         }
     }
@@ -101,10 +101,10 @@ class Authenticator
      */
     private function generateCredentials()
     {
-        $key    = $this->engine->config->get('mpesa.consumer_key');
+        $key = $this->engine->config->get('mpesa.consumer_key');
         $secret = $this->engine->config->get('mpesa.consumer_secret');
 
-        return \base64_encode($key . ':' . $secret);
+        return \base64_encode($key.':'.$secret);
     }
 
     /**
@@ -118,8 +118,8 @@ class Authenticator
 
         return $this->engine->client->request('GET', $this->endpoint, [
             'headers' => [
-                'Authorization' => 'Basic ' . $credentials,
-                'Content-Type'  => 'application/json',
+                'Authorization' => 'Basic '.$credentials,
+                'Content-Type' => 'application/json',
             ],
         ]);
     }
@@ -131,7 +131,7 @@ class Authenticator
      */
     private function saveCredentials($credentials)
     {
-        $ttl = ($credentials->expires_in / 60) - 2;
+        $ttl = (int) ($credentials->expires_in / 60) - 2;
 
         $this->engine->cache->put(self::AC_TOKEN, $credentials->access_token, $ttl);
     }

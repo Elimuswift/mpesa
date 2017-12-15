@@ -3,27 +3,29 @@
 namespace Elimuswift\Mpesa\B2C;
 
 use Elimuswift\Mpesa\Engine\Core;
-use GuzzleHttp\Exception\RequestException;
+use Elimuswift\Mpesa\Support\MakesRequest;
 use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 use Elimuswift\Mpesa\Generators\SecurityCredentialGenerator as Generator;
 
-class PayOut
+class Payment
 {
-    protected $pushEndpoint;
+    use MakesRequest;
+
+    protected $endpoint;
     protected $engine;
     protected $number;
     protected $amount;
     protected $details;
 
     /**
-     * PayOut constructor.
+     * Payment constructor.
      *
      * @param Core $engine
      */
     public function __construct(Core $engine)
     {
         $this->engine = $engine;
-        $this->pushEndpoint = EndpointsRepository::build('mpesa/c2b/v1/simulate');
+        $this->endpoint = EndpointsRepository::build('mpesa/b2c/v1/paymentrequest');
     }
 
     /**
@@ -96,34 +98,10 @@ class PayOut
             'PartyA' => $paybill,
             'PartyB' => $this->number,
             'Remarks' => $this->details,
-            'QueueTimeOutURL' => 'http://your_timeout_url',
-            'ResultURL' => 'http://your_result_url',
+            'QueueTimeOutURL' => $this->engine->config->get('mpesa.b2c_timeout_url'),
+            'ResultURL' => $this->engine->config->get('mpesa.b2c_result_url'),
         ];
 
-        try {
-            $response = $this->makeRequest($body);
-
-            return \json_decode($response->getBody());
-        } catch (RequestException $exception) {
-            return \json_decode($exception->getResponse()->getBody());
-        }
-    }
-
-    /**
-     * Initiate the request.
-     *
-     * @param array $body
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    private function makeRequest($body = [])
-    {
-        return $this->engine->client->request('POST', $this->pushEndpoint, [
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->engine->auth->authenticate(),
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $body,
-        ]);
+        return $this->handleRequest($body);
     }
 }

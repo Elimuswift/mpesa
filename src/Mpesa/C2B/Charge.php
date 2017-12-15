@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\RequestException;
 use Elimuswift\Mpesa\Engine\Core;
 use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
-class STK
+class Charge
 {
     protected $pushEndpoint;
     protected $engine;
@@ -17,13 +17,13 @@ class STK
     protected $description;
 
     /**
-     * STK constructor.
+     * Charge constructor.
      *
      * @param Core $engine
      */
     public function __construct(Core $engine)
     {
-        $this->engine       = $engine;
+        $this->engine = $engine;
         $this->pushEndpoint = EndpointsRepository::build(MPESA_STK_PUSH);
     }
 
@@ -55,7 +55,7 @@ class STK
      */
     public function from($number)
     {
-        if (! starts_with($number, '2547')) {
+        if (!starts_with($number, '2547')) {
             throw new \InvalidArgumentException('The subscriber number must start with 2547');
         }
 
@@ -80,32 +80,32 @@ class STK
             throw new \InvalidArgumentException('Reference should be alphanumeric.');
         }
 
-        $this->reference   = $reference;
+        $this->reference = $reference;
         $this->description = $description;
 
         return $this;
     }
 
-    public function push($amount = null, $number = null, $reference = null, $description = null)
+    public function create($amount = null, $number = null, $reference = null, $description = null)
     {
-        $time      = Carbon::now()->format('YmdHis');
+        $time = Carbon::now()->format('YmdHis');
         $shortCode = $this->engine->config->get('mpesa.short_code');
-        $passkey   = $this->engine->config->get('mpesa.passkey');
-        $callback  = $this->engine->config->get('mpesa.stk_callback');
-        $password  = \base64_encode($shortCode . $passkey . $time);
+        $passkey = $this->engine->config->get('mpesa.passkey');
+        $callback = $this->engine->config->get('mpesa.stk_callback');
+        $password = \base64_encode($shortCode.$passkey.$time);
 
         $body = [
             'BusinessShortCode' => $shortCode,
-            'Password'          => $password,
-            'Timestamp'         => $time,
-            'TransactionType'   => 'CustomerPayBillOnline',
-            'Amount'            => $amount ?: $this->amount,
-            'PartyA'            => $number ?: $this->number,
-            'PartyB'            => $shortCode,
-            'PhoneNumber'       => $number ?: $this->number,
-            'CallBackURL'       => $callback,
-            'AccountReference'  => $reference ?: $this->reference,
-            'TransactionDesc'   => $description ?: $this->description,
+            'Password' => $password,
+            'Timestamp' => $time,
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => $amount ?: $this->amount,
+            'PartyA' => $number ?: $this->number,
+            'PartyB' => $shortCode,
+            'PhoneNumber' => $number ?: $this->number,
+            'CallBackURL' => $callback,
+            'AccountReference' => $reference ?: $this->reference,
+            'TransactionDesc' => $description ?: $this->description,
         ];
 
         try {
@@ -128,8 +128,8 @@ class STK
     {
         return $this->engine->client->request('POST', $this->pushEndpoint, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->engine->auth->authenticate(),
-                'Content-Type'  => 'application/json',
+                'Authorization' => 'Bearer '.$this->engine->auth->authenticate(),
+                'Content-Type' => 'application/json',
             ],
             'json' => $body,
         ]);
