@@ -36,6 +36,7 @@ class ServiceProvider extends RootProvider
     {
         $this->bindInstances();
         $this->registerFacades();
+        $this->mergeConfigFrom(__DIR__.'/../../../assets/config/mpesa.php', 'mpesa');
     }
 
     private function bindInstances()

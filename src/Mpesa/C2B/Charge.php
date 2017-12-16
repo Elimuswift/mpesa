@@ -3,13 +3,15 @@
 namespace Elimuswift\Mpesa\C2B;
 
 use Carbon\Carbon;
-use GuzzleHttp\Exception\RequestException;
 use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Support\MakesRequest;
 use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 class Charge
 {
-    protected $pushEndpoint;
+    use MakesRequest;
+
+    protected $endpoint;
     protected $engine;
     protected $number;
     protected $amount;
@@ -24,7 +26,7 @@ class Charge
     public function __construct(Core $engine)
     {
         $this->engine = $engine;
-        $this->pushEndpoint = EndpointsRepository::build(MPESA_STK_PUSH);
+        $this->endpoint = EndpointsRepository::build(MPESA_STK_PUSH);
     }
 
     /**
@@ -108,30 +110,6 @@ class Charge
             'TransactionDesc' => $description ?: $this->description,
         ];
 
-        try {
-            $response = $this->makeRequest($body);
-
-            return \json_decode($response->getBody());
-        } catch (RequestException $exception) {
-            return \json_decode($exception->getResponse()->getBody());
-        }
-    }
-
-    /**
-     * Initiate the request.
-     *
-     * @param array $body
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    private function makeRequest($body = [])
-    {
-        return $this->engine->client->request('POST', $this->pushEndpoint, [
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->engine->auth->authenticate(),
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $body,
-        ]);
+        return $this->handleRequest($body);
     }
 }

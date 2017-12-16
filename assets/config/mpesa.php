@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'stk_callback' => url('mpesa/callbacks/stk-push/response'),
+    'stk_callback' => 'mpesa/callbacks/stk-push/response',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'id_validation_callback' => url('mpesa/callbacks/confirmation/response'),
+    'id_validation_callback' => 'mpesa/callbacks/confirmation/response',
 
     /*
     |--------------------------------------------------------------------------
@@ -117,25 +117,6 @@ return [
     'short_code' => env('MPESA_ONLINE', 174379),
 
     /*
-     |------------------------------------------------------------------------
-     | B2C queue timeout URL
-     |------------------------------------------------------------------------
-     |
-     | A POST request will be sent to this url when a time out happens on the M-Pesa server
-     |
-     */
-    'b2c_timeout_url' => '',
-
-    /*
-     |------------------------------------------------------------------------
-     | B2C queue timeout URL
-     |------------------------------------------------------------------------
-     |
-     | A POST request will be sent to this url when a time out happens on the M-Pesa server
-     |
-     */
-    'b2c_timeout_url' => '',
-    /*
     |--------------------------------------------------------------------------
     | SAG Passkey
     |--------------------------------------------------------------------------
@@ -149,16 +130,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Transaction ID Handler
+    | Result URL Endpoints
     |--------------------------------------------------------------------------
     |
-    | Provide a fully qualified class name of the Class that will be
-    | used to generate the transaction number. This class must implement the
-    | Transactable Interface.
+    | These endpoints  will be used by mpesa to send responses after a transaction has been proccessed
+    | A request will be sent to these endpoints with regard to the API
     |
-    | Default: '\Elimuswift\Mpesa\Generator'
     |
     */
 
-    'transaction_id_handler' => '\Elimuswift\Mpesa\Generator',
+    'account_balance_result_url' => env('APP_URL').'/mpesa/callbacks/account-balance',
+    'b2c_result_url' => env('APP_URL').'/mpesa/callbacks/b2c-callback',
+
+    /*
+    |-------------------------------------------------------------------------
+    | Queue Timeout URL
+    |-------------------------------------------------------------------------
+    |
+    | This endpoint will receive a POST request if a timeout is encontered while attempting to proccess
+    | an Mpesa request
+    |
+     */
+    'queue_timeout_callback' => env('APP_URL').'/mpesa/callbacks/request-timeout',
 ];
