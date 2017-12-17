@@ -35,7 +35,7 @@
             ],
             "aliases": {
                 "Charge": "Elimuswift\\Mpesa\\Laravel\\Facades\\STK",
-                "Registrar": "Elimuswift\\Mpesa\\Laravel\\Facades\\Registrar",
+                "Registrar": "Elimuswift\\Mpesa\\Laravel\\Facades\\Registrar"
             }
         }
     },
