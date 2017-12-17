@@ -123,12 +123,12 @@ class PayMerchant
             'Remarks' => $this->remarks,
             'SenderIdentifierType' => $this->engine->config->get('mpesa.identifier_type'),
             'RecieverIdentifierType' => $this->identifierType,
-            'QueueTimeOutURL' => $this->engine->config->get('mpesa.b2b_timeout_url'),
-            'ResultURL' => $this->engine->config->get('mpesa.b2b_result_url'),
+            'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
+            'ResultURL' => $this->callback('mpesa.b2b_result_url'),
         ];
         if ('BusinessPayBill' === $body['CommandID']) {
             if (null === $this->reference) {
-                throw new \InvalidArgumentException('Account Reference mandatory for “BusinessPaybill” CommandID.');
+                throw new \InvalidArgumentException('Account Reference is mandatory for “BusinessPaybill” CommandID.');
             }
             $body['AccountReference'] = $this->reference;
         }

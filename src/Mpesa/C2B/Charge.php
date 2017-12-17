@@ -93,7 +93,7 @@ class Charge
         $time = Carbon::now()->format('YmdHis');
         $shortCode = $this->engine->config->get('mpesa.short_code');
         $passkey = $this->engine->config->get('mpesa.passkey');
-        $callback = $this->engine->config->get('mpesa.stk_callback');
+        $callback = $this->callback('mpesa.stk_callback');
         $password = \base64_encode($shortCode.$passkey.$time);
 
         $body = [

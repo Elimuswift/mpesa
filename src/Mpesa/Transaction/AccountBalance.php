@@ -45,8 +45,8 @@ class AccountBalance
             'PartyA' => $paybill,
             'IdentifierType' => '4',
             'Remarks' => 'Account balance request',
-            'QueueTimeOutURL' => $this->engine->config->get('mpesa.queue_timeout_callback'),
-            'ResultURL' => $this->engine->config->get('mpesa.account_balance_result_url'),
+            'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
+            'ResultURL' => $this->callback('mpesa.account_balance_result_url'),
         ];
 
         return $this->handleRequest($body);

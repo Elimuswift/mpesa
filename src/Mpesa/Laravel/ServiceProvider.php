@@ -24,7 +24,7 @@ class ServiceProvider extends RootProvider
             __DIR__.'/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
         ]);
         $this->publishes([
-            __DIR__.'/../../../assets/keys/cert.cer' => storage_path('mpesa_public.key'),
+            __DIR__.'/../../../assets/storage/mpesa_public.key' => storage_path('mpesa_public.key'),
         ]);
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
     }

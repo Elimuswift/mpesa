@@ -2,9 +2,9 @@
 
 namespace Elimuswift\Mpesa\C2B;
 
-use GuzzleHttp\Exception\RequestException;
 use InvalidArgumentException;
 use Elimuswift\Mpesa\Engine\Core;
+use Elimuswift\Mpesa\Support\MakesRequest;
 use Elimuswift\Mpesa\Repositories\EndpointsRepository;
 
 /**
@@ -16,6 +16,8 @@ use Elimuswift\Mpesa\Repositories\EndpointsRepository;
  */
 class Registrar
 {
+    use MakesRequest;
+
     /**
      * @var string
      */
@@ -61,7 +63,7 @@ class Registrar
      */
     public function __construct(Core $engine)
     {
-        $this->engine   = $engine;
+        $this->engine = $engine;
         $this->endpoint = EndpointsRepository::build(MPESA_REGISTER);
     }
 
@@ -116,7 +118,7 @@ class Registrar
      */
     public function onTimeout($onTimeout = 'Completed')
     {
-        if ($onTimeout != 'Completed' && $onTimeout != 'Cancelled') {
+        if ('Completed' != $onTimeout && 'Cancelled' != $onTimeout) {
             throw new InvalidArgumentException('Invalid timeout argument. Use Completed or Cancelled');
         }
 
@@ -139,55 +141,17 @@ class Registrar
      */
     public function submit($shortCode = null, $confirmationURL = null, $validationURL = null, $onTimeout = null)
     {
-        if ($onTimeout && $onTimeout != 'Completed' && $onTimeout = 'Cancelled') {
+        if ($onTimeout && 'Completed' != $onTimeout && 'Cancelled' != $onTimeout) {
             throw new InvalidArgumentException('Invalid timeout argument. Use Completed or Cancelled');
         }
 
         $body = [
-            'ShortCode'       => $shortCode ?: $this->shortCode,
-            'ResponseType'    => $onTimeout ?: $this->onTimeout,
+            'ShortCode' => $shortCode ?: $this->shortCode,
+            'ResponseType' => $onTimeout ?: $this->onTimeout,
             'ConfirmationURL' => $confirmationURL ?: $this->confirmationURL,
-            'ValidationURL'   => $validationURL ?: $this->validationURL
+            'ValidationURL' => $validationURL ?: $this->validationURL,
         ];
 
-        try {
-            $response = $this->makeRequest($body);
-
-            return \json_decode($response->getBody());
-        } catch (RequestException $exception) {
-            $message = $exception->getResponse() ?
-               $exception->getResponse()->getReasonPhrase() :
-               $exception->getMessage();
-
-            throw $this->generateException($message);
-        }
-    }
-
-    /**
-     * Initiate the registration request.
-     *
-     * @param array $body
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    private function makeRequest($body = [])
-    {
-        return $this->engine->client->request('POST', $this->endpoint, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->engine->auth->authenticate(),
-                'Content-Type'  => 'application/json',
-            ],
-            'json' => $body,
-        ]);
-    }
-
-    /**
-     * @param $getReasonPhrase
-     *
-     * @return \Exception
-     */
-    private function generateException($getReasonPhrase)
-    {
-        return new \Exception($getReasonPhrase);
+        return $this->handleRequest($body);
     }
 }

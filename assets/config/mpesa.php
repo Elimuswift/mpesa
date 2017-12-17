@@ -35,14 +35,14 @@ return [
     |--------------------------------------------------------------------------
     | Public Key
     |--------------------------------------------------------------------------
+    |
     | The absolute path to safaricom's public key certificate.
-    }
     | This key is used to generate the security credetial for transactions
     |
     |
      */
 
-    'public_key' => storage_path('mpesa_public.key'),
+    'public_key' => __DIR__.'/../storage/mpesa_public.key',
 
     /*
     |--------------------------------------------------------------------------
@@ -54,6 +54,24 @@ return [
     */
 
     'cache_location' => 'cache',
+
+    /*
+    |-------------------------------------------------------------------------
+    | Result Callback Endpoint
+    |-------------------------------------------------------------------------
+    |
+    | This option enables the use of the callbacks provided by this package
+    | If you want to implement your own callbacks feel free to change
+    | 'default_callbacks' => false
+    | and add a fully qualified domain name to the callbacks for example
+    | 'stk_callback' => 'https://my-domain.com/callbacks/stk-push'
+    |
+    | The default behaviour of the package is that it appends the callback urls
+    | to the URL provided on the 'callbacks_endpoint' config value
+    |
+     */
+    'default_callbacks' => true,
+    'callbacks_endpoint' => 'https://sandbox.mpesa.elimuswift.com',
 
    /*
     |--------------------------------------------------------------------------
@@ -139,8 +157,11 @@ return [
     |
     */
 
-    'account_balance_result_url' => env('APP_URL').'/mpesa/callbacks/account-balance',
-    'b2c_result_url' => env('APP_URL').'/mpesa/callbacks/b2c-callback',
+    'account_balance_result_url' => 'mpesa/callbacks/account-balance/result',
+    'b2c_result_url' => 'mpesa/callbacks/b2c/result',
+    'b2b_result_url' => 'mpesa/callbacks/b2b-/result',
+    'reversal_result_url' => 'mpesa/callbacks/reversal/result',
+    'status_result_url' => 'mpesa/callbacks/status/result',
 
     /*
     |-------------------------------------------------------------------------
@@ -151,5 +172,5 @@ return [
     | an Mpesa request
     |
      */
-    'queue_timeout_callback' => env('APP_URL').'/mpesa/callbacks/request-timeout',
+    'queue_timeout_callback' => 'mpesa/callbacks/request-timeout',
 ];

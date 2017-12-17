@@ -10,7 +10,7 @@ use Elimuswift\Mpesa\Generators\SecurityCredentialGenerator as Generator;
 /**
  * @author Leitato Albert <wizqydy@gmail.com>
  */
-class Reversal
+class Status
 {
     use MakesRequest;
 
@@ -18,22 +18,22 @@ class Reversal
     protected $engine;
 
     /**
-     * Treansaction Reversal constructor.
+     * Treansaction Status constructor.
      *
      * @param Core $engine
      */
     public function __construct(Core $engine)
     {
         $this->engine = $engine;
-        $this->endpoint = EndpointsRepository::build('mpesa/reversal/v1/request');
+        $this->endpoint = EndpointsRepository::build('mpesa/transactionstatus/v1/query');
     }
 
     /**
-     * Initiate  transaction reversal request transaction.
+     * Initiate  transaction status request transaction.
      *
      * @return mixed
      */
-    public function reverse($transaction, $number, $amount)
+    public function check($transaction, $identifier = 1)
     {
         $paybill = $this->engine->config->get('mpesa.paybill_number');
         $initiator = $this->engine->config->get('mpesa.initiator');
@@ -41,14 +41,13 @@ class Reversal
         $body = [
             'Initiator' => $initiator,
             'SecurityCredential' => $credential,
-            'CommandID' => 'TransactionReversal',
+            'CommandID' => 'TransactionStatusQuery',
             'TransactionID' => $transaction,
-            'Amount' => $amount,
-            'ReceiverParty' => $number,
-            'RecieverIdentifierType' => '4',
-            'Remarks' => 'Transaction reversal request',
+            'PartyA' => $paybill,
+            'RecieverIdentifierType' => $identifier,
+            'Remarks' => 'Transaction Status request',
             'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
-            'ResultURL' => $this->callback('mpesa.reversal_result_url'),
+            'ResultURL' => $this->callback('mpesa.status_result_url'),
         ];
 
         return $this->handleRequest($body);

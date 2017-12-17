@@ -34,9 +34,8 @@
                 "Elimuswift\\Mpesa\\Laravel\\ServiceProvider"
             ],
             "aliases": {
-                "STK": "Elimuswift\\Mpesa\\Laravel\\Facades\\STK",
+                "Charge": "Elimuswift\\Mpesa\\Laravel\\Facades\\STK",
                 "Registrar": "Elimuswift\\Mpesa\\Laravel\\Facades\\Registrar",
-                "Identity": "Elimuswift\\Mpesa\\Laravel\\Facades\\Identity"
             }
         }
     },

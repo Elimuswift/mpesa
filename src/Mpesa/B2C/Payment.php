@@ -98,8 +98,8 @@ class Payment
             'PartyA' => $paybill,
             'PartyB' => $this->number,
             'Remarks' => $this->details,
-            'QueueTimeOutURL' => $this->engine->config->get('mpesa.b2c_timeout_url'),
-            'ResultURL' => $this->engine->config->get('mpesa.b2c_result_url'),
+            'QueueTimeOutURL' => $this->callback('mpesa.b2c_timeout_url'),
+            'ResultURL' => $this->callback('mpesa.b2c_result_url'),
         ];
 
         return $this->handleRequest($body);

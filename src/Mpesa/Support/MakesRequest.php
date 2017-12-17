@@ -39,4 +39,25 @@ trait MakesRequest
             'json' => $body,
         ]);
     }
+
+    /**
+     * Generate the result callback url.
+     *
+     * The generated url is based on the values provided in the configuration
+     *
+     * @param string $option
+     *
+     * @return string
+     **/
+    protected function callback($option)
+    {
+        $config = $this->engine->config;
+        $callback = trim($config->get($option), '/');
+        if ($config->get('default_callbacks')) {
+            $endpoint = trim($config->get('callbacks_endpoint'), '/');
+            $callback = "{$endpoint}/{$callback}";
+        }
+
+        return $callback;
+    }
 }

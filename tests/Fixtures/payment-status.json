@@ -1,0 +1,8 @@
+{
+  "ResponseCode":"0",
+  "ResponseDescription":"The service request has been accepted successfully",
+  "MerchantRequestID":"8555-67195-1",
+  "CheckoutRequestID":"ws_CO_27072017151044001",
+  "ResultCode":"1032",
+  "ResultDesc":"[STK_CB - ]Request cancelled by user"
+}

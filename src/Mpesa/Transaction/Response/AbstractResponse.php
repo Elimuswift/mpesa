@@ -1,8 +1,8 @@
 <?php
 
-namespace Elimuswift\Mpesa\Abstracts;
+namespace Elimuswift\Mpesa\Transaction\Response;
 
-abstract class AbstractApiResponse
+abstract class AbstractResponse
 {
     public $resultType;
 
@@ -15,10 +15,6 @@ abstract class AbstractApiResponse
     public $conversationID;
 
     public $transactionID;
-
-    public $resultParameters = [];
-
-    public $referenceData = [];
 
     public function __construct(array $data)
     {
@@ -43,7 +39,7 @@ abstract class AbstractApiResponse
                                 {
                                     $this->key = array_key_exists('Key', $data) ? $data['Key'] : null;
                                     $this->value = array_key_exists('Value', $data) ? $data['Value'] : null;
-                                    if (in_array($this->key, ['DebitAccountCurrentBalance', 'InitiatorAccountCurrentBalance'])) {
+                                    if (in_array($this->key, ['AccountBalance', 'DebitPartyCharges'])) {
                                         $this->value = $this->parseAmount($this->value);
                                     }
                                 }
@@ -57,17 +53,13 @@ abstract class AbstractApiResponse
                                  **/
                                 protected function parseAmount($raw)
                                 {
-                                    $str = str_replace('=', ':', $raw);
-                                    $amount = json_decode(preg_replace('/[a-zA-Z]+/', '"${0}"', $str));
-
-                                    return is_object($amount) ? $amount->Amount : new class() {
-                                        public $BasicAmount;
-                                        public $MinimumAmount;
-                                        public $CurrencyCode;
-                                    };
+                                    return collect(explode('&', $raw))
+                                    ->transform(function ($account) {
+                                        return explode('|', $account);
+                                    });
                                 }
                             };
-                            $this->{$property}[$item->key] = $item->value;
+                            $this->{lcfirst(str_replace(' ', '_', $item->key))} = $item->value;
                         }
                     }
                 });
