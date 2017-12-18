@@ -49,6 +49,7 @@
     "require-dev": {
         "mockery/mockery": "dev-master",
         "phpunit/phpunit": "~5.7|~6.2",
+        "orchestra/testbench": "^3.5",
         "symfony/finder": "^4.0"
     },
     "minimum-stability": "stable"

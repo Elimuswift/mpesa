@@ -34,8 +34,7 @@ class MpesaWebHookController extends BaseController
         event(new B2CResultReceived($result));
         $this->logRequest($data, "-------- B2C Payment Result Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -50,8 +49,7 @@ class MpesaWebHookController extends BaseController
         event(new B2BPaymentProcessed($result));
         $this->logRequest($data, "-------- B2B Payment Confirmation Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -66,8 +64,7 @@ class MpesaWebHookController extends BaseController
         event(new StatusResponse($result));
         $this->logRequest($data, "-------- Transaction Status Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -82,8 +79,7 @@ class MpesaWebHookController extends BaseController
         event(new AccountResponse($result));
         $this->logRequest($data, "-------- Transaction Status Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -98,8 +94,7 @@ class MpesaWebHookController extends BaseController
         event(new Reversed($result));
         $this->logRequest($data, "-------- Transaction Reversal Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -116,8 +111,7 @@ class MpesaWebHookController extends BaseController
         event(new C2BConfirmed($confirmation));
         $this->logRequest($data, "-------- C2B Confirmation Request --------\r\n");
 
-        return var_dump($confirmation);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
@@ -138,8 +132,7 @@ class MpesaWebHookController extends BaseController
         }
         $this->logRequest($data, "-------- Online Payment Charge Request --------\r\n");
 
-        return var_dump($result);
-        //return $this->responseResult();
+        return $this->responseResult();
     }
 
     /**
