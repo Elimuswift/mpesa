@@ -6,3 +6,4 @@ index.php
 /cache
 /.phpintel
 dev.phpunit.xml
+.DS_Store
