@@ -34,7 +34,7 @@
                 "Elimuswift\\Mpesa\\Laravel\\ServiceProvider"
             ],
             "aliases": {
-                "Mpesa": "Elimuswift\\Mpesa\\Laravel\\Facades\\Mpesa",
+                "Mpesa": "Elimuswift\\Mpesa\\Laravel\\Facades\\Mpesa"
             }
         }
     },
