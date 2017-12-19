@@ -16,4 +16,6 @@ Route::group(['prefix' => 'mpesa/callbacks', 'namespace' => 'Elimuswift\Mpesa\La
          ->name('mpesa.status.callback');
     Route::post('account-balance/result', 'MpesaWebHookController@handleAccountBalanceResult')
          ->name('mpesa.balance.callback');
+    Route::post('request-timeout', 'MpesaWebHookController@requestTimeOut')
+         ->name('mpesa.timeout.callback');
 });
