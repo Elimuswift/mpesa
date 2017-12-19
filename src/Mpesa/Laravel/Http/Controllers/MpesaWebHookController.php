@@ -77,7 +77,7 @@ class MpesaWebHookController extends BaseController
         $data = $request->input('Result', []);
         $result = new AccountBalance($data);
         event(new AccountResponse($result));
-        $this->logRequest($data, "-------- Transaction Status Request --------\r\n");
+        $this->logRequest($data, "-------- Account Balance Request --------\r\n");
 
         return $this->responseResult();
     }

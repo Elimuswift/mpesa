@@ -29,7 +29,7 @@ return [
 
     'initiator' => env('MPESA_INITIATOR', 'apitest336'),
 
-    'initiator_paswword' => env('MPESA_INITIATOR_PASSWORD', '336reset'),
+    'initiator_password' => env('MPESA_INITIATOR_PASSWORD', '336reset'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return [
     |
      */
     'default_callbacks' => true,
-    'callbacks_endpoint' => 'https://sandbox.mpesa.elimuswift.com',
+    'callbacks_endpoint' => env('MPESA_CALLBACKS_ENDPOINT', 'https://sandbox.localtunnel.me'),
 
    /*
     |--------------------------------------------------------------------------

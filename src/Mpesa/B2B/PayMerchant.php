@@ -43,7 +43,7 @@ class PayMerchant
             throw new \InvalidArgumentException('The amount must be numeric');
         }
 
-        $this->amount = number_format($amount, 2);
+        $this->amount = (float) number_format($amount, 2);
 
         return $this;
     }
@@ -79,7 +79,7 @@ class PayMerchant
      */
     public function toMerchant(int $merchantPaybill, int $identifierType = 4)
     {
-        if (!array_key_exists($identifierType, [1, 2, 4])) {
+        if (!in_array($identifierType, [1, 2, 4])) {
             throw new \InvalidArgumentException("The Identifier type $identifierType is not supported");
         }
         $this->partyB = $merchantPaybill;
@@ -110,7 +110,7 @@ class PayMerchant
      */
     public function transact()
     {
-        $paybill = $this->engine->config->get('mpesa.pay_bill');
+        $paybill = $this->engine->config->get('mpesa.paybill_number');
         $initiator = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
         $body = [
@@ -121,7 +121,7 @@ class PayMerchant
             'PartyA' => $paybill,
             'PartyB' => $this->partyB,
             'Remarks' => $this->remarks,
-            'SenderIdentifierType' => $this->engine->config->get('mpesa.identifier_type'),
+            'SenderIdentifierType' => $this->engine->config->get('mpesa.identifier_type') ?: 4,
             'RecieverIdentifierType' => $this->identifierType,
             'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
             'ResultURL' => $this->callback('mpesa.b2b_result_url'),
@@ -132,6 +132,7 @@ class PayMerchant
             }
             $body['AccountReference'] = $this->reference;
         }
+        // dd($body);
 
         return $this->handleRequest($body);
     }
