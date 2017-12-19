@@ -24,7 +24,7 @@ class Reversal
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/reversal/v1/request');
     }
 
@@ -35,20 +35,20 @@ class Reversal
      */
     public function reverse($transaction, $number, $amount)
     {
-        $paybill = $this->engine->config->get('mpesa.paybill_number');
-        $initiator = $this->engine->config->get('mpesa.initiator');
+        $paybill    = $this->engine->config->get('mpesa.paybill_number');
+        $initiator  = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
-        $body = [
-            'Initiator' => $initiator,
-            'SecurityCredential' => $credential,
-            'CommandID' => 'TransactionReversal',
-            'TransactionID' => $transaction,
-            'Amount' => $amount,
-            'ReceiverParty' => $number,
+        $body       = [
+            'Initiator'              => $initiator,
+            'SecurityCredential'     => $credential,
+            'CommandID'              => 'TransactionReversal',
+            'TransactionID'          => $transaction,
+            'Amount'                 => $amount,
+            'ReceiverParty'          => $number,
             'RecieverIdentifierType' => '4',
-            'Remarks' => 'Transaction reversal request',
-            'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
-            'ResultURL' => $this->callback('mpesa.reversal_result_url'),
+            'Remarks'                => 'Transaction reversal request',
+            'QueueTimeOutURL'        => $this->callback('mpesa.queue_timeout_callback'),
+            'ResultURL'              => $this->callback('mpesa.reversal_result_url'),
         ];
 
         return $this->handleRequest($body);

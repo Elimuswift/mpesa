@@ -20,11 +20,11 @@ abstract class AbstractResponse
     {
         $requestData = collect($data);
         $requestData->map(function ($item, $key) {
-            $property = lcfirst($key);
-            if (is_array($item)) {
+            $property = \lcfirst($key);
+            if (\is_array($item)) {
                 collect($item)->map(function ($items) use ($property) {
                     foreach ($items as $value) {
-                        if (is_array($value)) {
+                        if (\is_array($value)) {
                             $item = new class($value) {
                                 public $key;
 
@@ -37,9 +37,9 @@ abstract class AbstractResponse
                                  */
                                 public function __construct($data)
                                 {
-                                    $this->key = array_key_exists('Key', $data) ? $data['Key'] : null;
-                                    $this->value = array_key_exists('Value', $data) ? $data['Value'] : null;
-                                    if (in_array($this->key, ['AccountBalance', 'DebitPartyCharges'])) {
+                                    $this->key = \array_key_exists('Key', $data) ? $data['Key'] : null;
+                                    $this->value = \array_key_exists('Value', $data) ? $data['Value'] : null;
+                                    if (\in_array($this->key, ['AccountBalance', 'DebitPartyCharges'])) {
                                         $this->value = $this->parseAmount($this->value);
                                     }
                                 }
@@ -53,13 +53,13 @@ abstract class AbstractResponse
                                  **/
                                 protected function parseAmount($raw)
                                 {
-                                    return collect(explode('&', $raw))
+                                    return collect(\explode('&', $raw))
                                     ->transform(function ($account) {
-                                        return explode('|', $account);
+                                        return \explode('|', $account);
                                     });
                                 }
                             };
-                            $this->{lcfirst(str_replace(' ', '_', $item->key))} = $item->value;
+                            $this->{\lcfirst(\str_replace(' ', '_', $item->key))} = $item->value;
                         }
                     }
                 });

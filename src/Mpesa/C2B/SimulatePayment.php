@@ -23,7 +23,7 @@ class SimulatePayment
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/c2b/v1/simulate');
     }
 
@@ -95,10 +95,10 @@ class SimulatePayment
         $this->from($number);
         $this->usingReference($reference);
         $body = [
-            'ShortCode' => $shortCode,
-            'CommandID' => 'CustomerPayBillOnline',
-            'Amount' => $this->amount,
-            'Msisdn' => $this->number,
+            'ShortCode'     => $shortCode,
+            'CommandID'     => 'CustomerPayBillOnline',
+            'Amount'        => $this->amount,
+            'Msisdn'        => $this->number,
             'BillRefNumber' => $this->reference,
         ];
 

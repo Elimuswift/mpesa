@@ -13,8 +13,8 @@ final class ChargeResponse
     public function __construct(array $data)
     {
         collect($data)->map(function ($item, $key) {
-            $property = lcfirst($key);
-            if (is_array($item)) {
+            $property = \lcfirst($key);
+            if (\is_array($item)) {
                 collect($item)->map(function ($items) use ($property) {
                     foreach ($items as $value) {
                         $item = new class($value) {
@@ -25,7 +25,7 @@ final class ChargeResponse
                             public function __construct($data)
                             {
                                 foreach ($data as $key => $foo) {
-                                    $this->{lcfirst($key)} = $foo;
+                                    $this->{\lcfirst($key)} = $foo;
                                 }
                             }
                         };

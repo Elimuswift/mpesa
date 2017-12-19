@@ -20,8 +20,8 @@ class Reversal
     {
         $requestData = collect($data);
         $requestData->map(function ($item, $key) {
-            $property = lcfirst($key);
-            if (!is_array($item)) {
+            $property = \lcfirst($key);
+            if (!\is_array($item)) {
                 $this->{$property} = $item;
             }
         });

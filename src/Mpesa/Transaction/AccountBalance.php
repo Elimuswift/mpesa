@@ -24,7 +24,7 @@ class AccountBalance
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/accountbalance/v1/query');
     }
 
@@ -35,18 +35,18 @@ class AccountBalance
      */
     public function request()
     {
-        $paybill = $this->engine->config->get('mpesa.paybill_number');
-        $initiator = $this->engine->config->get('mpesa.initiator');
+        $paybill    = $this->engine->config->get('mpesa.paybill_number');
+        $initiator  = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
-        $body = [
-            'Initiator' => $initiator,
+        $body       = [
+            'Initiator'          => $initiator,
             'SecurityCredential' => $credential,
-            'CommandID' => 'AccountBalance',
-            'PartyA' => $paybill,
-            'IdentifierType' => '4',
-            'Remarks' => 'Account balance request',
-            'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
-            'ResultURL' => $this->callback('mpesa.account_balance_result_url'),
+            'CommandID'          => 'AccountBalance',
+            'PartyA'             => $paybill,
+            'IdentifierType'     => '4',
+            'Remarks'            => 'Account balance request',
+            'QueueTimeOutURL'    => $this->callback('mpesa.queue_timeout_callback'),
+            'ResultURL'          => $this->callback('mpesa.account_balance_result_url'),
         ];
 
         return $this->handleRequest($body);

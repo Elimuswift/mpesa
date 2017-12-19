@@ -25,7 +25,7 @@ class Charge
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build(MPESA_STK_PUSH);
     }
 
@@ -82,7 +82,7 @@ class Charge
             throw new \InvalidArgumentException('Reference should be alphanumeric.');
         }
 
-        $this->reference = $reference;
+        $this->reference   = $reference;
         $this->description = $description;
 
         return $this;
@@ -90,24 +90,24 @@ class Charge
 
     public function create($amount = null, $number = null, $reference = null, $description = null)
     {
-        $time = Carbon::now()->format('YmdHis');
+        $time      = Carbon::now()->format('YmdHis');
         $shortCode = $this->engine->config->get('mpesa.short_code');
-        $passkey = $this->engine->config->get('mpesa.passkey');
-        $callback = $this->callback('mpesa.stk_callback');
-        $password = \base64_encode($shortCode.$passkey.$time);
+        $passkey   = $this->engine->config->get('mpesa.passkey');
+        $callback  = $this->callback('mpesa.stk_callback');
+        $password  = \base64_encode($shortCode . $passkey . $time);
 
         $body = [
             'BusinessShortCode' => $shortCode,
-            'Password' => $password,
-            'Timestamp' => $time,
-            'TransactionType' => 'CustomerPayBillOnline',
-            'Amount' => $amount ?: $this->amount,
-            'PartyA' => $number ?: $this->number,
-            'PartyB' => $shortCode,
-            'PhoneNumber' => $number ?: $this->number,
-            'CallBackURL' => $callback,
-            'AccountReference' => $reference ?: $this->reference,
-            'TransactionDesc' => $description ?: $this->description,
+            'Password'          => $password,
+            'Timestamp'         => $time,
+            'TransactionType'   => 'CustomerPayBillOnline',
+            'Amount'            => $amount ?: $this->amount,
+            'PartyA'            => $number ?: $this->number,
+            'PartyB'            => $shortCode,
+            'PhoneNumber'       => $number ?: $this->number,
+            'CallBackURL'       => $callback,
+            'AccountReference'  => $reference ?: $this->reference,
+            'TransactionDesc'   => $description ?: $this->description,
         ];
 
         return $this->handleRequest($body);

@@ -24,7 +24,7 @@ class Payment
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/b2c/v1/paymentrequest');
     }
 
@@ -41,7 +41,7 @@ class Payment
             throw new \InvalidArgumentException('The amount must be numeric');
         }
 
-        $this->amount = number_format($amount, 2);
+        $this->amount = \number_format($amount, 2);
 
         return $this;
     }
@@ -72,7 +72,7 @@ class Payment
      **/
     public function for(string $details)
     {
-        if (!strlen($details) > 2) {
+        if (!\strlen($details) > 2) {
             throw new \InvalidArgumentException('The payment remarks must be at least three characters');
         }
         $this->details = $details;
@@ -87,19 +87,19 @@ class Payment
      */
     public function transact()
     {
-        $paybill = $this->engine->config->get('mpesa.pay_bill');
-        $initiator = $this->engine->config->get('mpesa.initiator');
+        $paybill    = $this->engine->config->get('mpesa.pay_bill');
+        $initiator  = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
-        $body = [
-            'InitiatorName' => $initiator,
+        $body       = [
+            'InitiatorName'      => $initiator,
             'SecurityCredential' => $credential,
-            'CommandID' => 'BusinessPayment',
-            'Amount' => $this->amount,
-            'PartyA' => $paybill,
-            'PartyB' => $this->number,
-            'Remarks' => $this->details,
-            'QueueTimeOutURL' => $this->callback('mpesa.b2c_timeout_url'),
-            'ResultURL' => $this->callback('mpesa.b2c_result_url'),
+            'CommandID'          => 'BusinessPayment',
+            'Amount'             => $this->amount,
+            'PartyA'             => $paybill,
+            'PartyB'             => $this->number,
+            'Remarks'            => $this->details,
+            'QueueTimeOutURL'    => $this->callback('mpesa.b2c_timeout_url'),
+            'ResultURL'          => $this->callback('mpesa.b2c_result_url'),
         ];
 
         return $this->handleRequest($body);

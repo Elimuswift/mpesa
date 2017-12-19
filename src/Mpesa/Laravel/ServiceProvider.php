@@ -21,12 +21,12 @@ class ServiceProvider extends RootProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
+            __DIR__ . '/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
         ]);
         $this->publishes([
-            __DIR__.'/../../../assets/storage/mpesa_public.key' => storage_path('mpesa_public.key'),
+            __DIR__ . '/../../../assets/storage/mpesa_public.key' => storage_path('mpesa_public.key'),
         ]);
-        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
     }
 
     /**
@@ -36,7 +36,7 @@ class ServiceProvider extends RootProvider
     {
         $this->bindInstances();
         $this->registerFacades();
-        $this->mergeConfigFrom(__DIR__.'/../../../assets/config/mpesa.php', 'mpesa');
+        $this->mergeConfigFrom(__DIR__ . '/../../../assets/config/mpesa.php', 'mpesa');
     }
 
     private function bindInstances()

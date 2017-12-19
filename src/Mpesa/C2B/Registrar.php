@@ -63,7 +63,7 @@ class Registrar
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build(MPESA_REGISTER);
     }
 
@@ -146,10 +146,10 @@ class Registrar
         }
 
         $body = [
-            'ShortCode' => $shortCode ?: $this->shortCode,
-            'ResponseType' => $onTimeout ?: $this->onTimeout,
+            'ShortCode'       => $shortCode ?: $this->shortCode,
+            'ResponseType'    => $onTimeout ?: $this->onTimeout,
             'ConfirmationURL' => $confirmationURL ?: $this->confirmationURL,
-            'ValidationURL' => $validationURL ?: $this->validationURL,
+            'ValidationURL'   => $validationURL ?: $this->validationURL,
         ];
 
         return $this->handleRequest($body);

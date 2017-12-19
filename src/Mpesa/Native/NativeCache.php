@@ -39,9 +39,9 @@ class NativeCache implements CacheStore
      */
     public function get($key, $default = null)
     {
-        $location = \trim($this->config->get('mpesa.cache_location')).'/.mpc';
+        $location = \trim($this->config->get('mpesa.cache_location')) . '/.mpc';
 
-        $default = is_callable($default) ? call_user_func($default) : $default;
+        $default = \is_callable($default) ? \call_user_func($default) : $default;
         if (!\is_file($location)) {
             return $default;
         }
@@ -66,7 +66,7 @@ class NativeCache implements CacheStore
     public function put($key, $value, $minutes = null)
     {
         $directory = \trim($this->config->get('mpesa.cache_location'));
-        $location = $directory.'/.mpc';
+        $location  = $directory . '/.mpc';
 
         if (!\is_dir($directory)) {
             \mkdir($directory, 0755, true);

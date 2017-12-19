@@ -29,7 +29,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function handleB2CPayoutResult(Request $request)
     {
-        $data = $request->input('Result', []);
+        $data   = $request->input('Result', []);
         $result = new PaymentReceived($data);
         event(new B2CResultReceived($result));
         $this->logRequest($data, "-------- B2C Payment Result Request --------\r\n");
@@ -44,7 +44,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function handleB2BPaymentResult(Request $request)
     {
-        $data = $request->input('Result', []);
+        $data   = $request->input('Result', []);
         $result = new PaymentProcessed($data);
         event(new B2BPaymentProcessed($result));
         $this->logRequest($data, "-------- B2B Payment Confirmation Request --------\r\n");
@@ -59,7 +59,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function handleTransactionStatusResult(Request $request)
     {
-        $data = $request->input('Result', []);
+        $data   = $request->input('Result', []);
         $result = new TransactionStatus($data);
         event(new StatusResponse($result));
         $this->logRequest($data, "-------- Transaction Status Request --------\r\n");
@@ -74,7 +74,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function handleAccountBalanceResult(Request $request)
     {
-        $data = $request->input('Result', []);
+        $data   = $request->input('Result', []);
         $result = new AccountBalance($data);
         event(new AccountResponse($result));
         $this->logRequest($data, "-------- Account Balance Request --------\r\n");
@@ -89,7 +89,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function handleReversalResult(Request $request)
     {
-        $data = $request->input('Result', []);
+        $data   = $request->input('Result', []);
         $result = new Reversal($data);
         event(new Reversed($result));
         $this->logRequest($data, "-------- Transaction Reversal Request --------\r\n");
@@ -106,7 +106,7 @@ class MpesaWebHookController extends BaseController
      */
     public function processC2BRequestConfirmation(Request $request)
     {
-        $data = $request->input();
+        $data         = $request->input();
         $confirmation = new Confirmation($data);
         event(new C2BConfirmed($confirmation));
         $this->logRequest($data, "-------- C2B Confirmation Request --------\r\n");
@@ -123,7 +123,7 @@ class MpesaWebHookController extends BaseController
      **/
     public function processOnlineCheckOutResult(Request $request)
     {
-        $data = $request->input('Body.stkCallback', []);
+        $data   = $request->input('Body.stkCallback', []);
         $result = new ChargeResponse($data);
         if (0 !== $result->resultCode) {
             event(new ChargeFailed($result));
@@ -143,12 +143,12 @@ class MpesaWebHookController extends BaseController
      **/
     protected function logRequest(array $data, $occassion)
     {
-        $file = fopen(storage_path('logs/mpesa.log'), 'a+');
+        $file = \fopen(storage_path('logs/mpesa.log'), 'a+');
         //log incoming request
-        fwrite($file, $occassion);
-        fwrite($file, json_encode($data));
-        fwrite($file, "\r\n");
-        fclose($file);
+        \fwrite($file, $occassion);
+        \fwrite($file, \json_encode($data));
+        \fwrite($file, "\r\n");
+        \fclose($file);
     }
 
     /**

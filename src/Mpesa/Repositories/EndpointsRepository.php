@@ -70,7 +70,7 @@ class EndpointsRepository
 
         $production = $this->store->get('mpesa.production_endpoint', '');
 
-        if (substr($production, strlen($production) - 1) !== '/') {
+        if (\substr($production, \strlen($production) - 1) !== '/') {
             $production = $production . '/';
         }
 

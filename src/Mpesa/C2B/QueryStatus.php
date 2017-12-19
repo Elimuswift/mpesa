@@ -22,21 +22,21 @@ class QueryStatus
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/stkpushquery/v1/query');
     }
 
     public function check($requestId)
     {
-        $time = Carbon::now()->format('YmdHis');
+        $time      = Carbon::now()->format('YmdHis');
         $shortCode = $this->engine->config->get('mpesa.short_code');
-        $passkey = $this->engine->config->get('mpesa.passkey');
-        $password = \base64_encode($shortCode.$passkey.$time);
+        $passkey   = $this->engine->config->get('mpesa.passkey');
+        $password  = \base64_encode($shortCode . $passkey . $time);
 
         $body = [
             'BusinessShortCode' => $shortCode,
-            'Password' => $password,
-            'Timestamp' => $time,
+            'Password'          => $password,
+            'Timestamp'         => $time,
             'CheckoutRequestID' => $requestId,
         ];
 

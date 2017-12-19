@@ -24,7 +24,7 @@ class Status
      */
     public function __construct(Core $engine)
     {
-        $this->engine = $engine;
+        $this->engine   = $engine;
         $this->endpoint = EndpointsRepository::build('mpesa/transactionstatus/v1/query');
     }
 
@@ -35,19 +35,19 @@ class Status
      */
     public function check($transaction, $identifier = 1)
     {
-        $paybill = $this->engine->config->get('mpesa.paybill_number');
-        $initiator = $this->engine->config->get('mpesa.initiator');
+        $paybill    = $this->engine->config->get('mpesa.paybill_number');
+        $initiator  = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
-        $body = [
-            'Initiator' => $initiator,
-            'SecurityCredential' => $credential,
-            'CommandID' => 'TransactionStatusQuery',
-            'TransactionID' => $transaction,
-            'PartyA' => $paybill,
+        $body       = [
+            'Initiator'              => $initiator,
+            'SecurityCredential'     => $credential,
+            'CommandID'              => 'TransactionStatusQuery',
+            'TransactionID'          => $transaction,
+            'PartyA'                 => $paybill,
             'RecieverIdentifierType' => $identifier,
-            'Remarks' => 'Transaction Status request',
-            'QueueTimeOutURL' => $this->callback('mpesa.queue_timeout_callback'),
-            'ResultURL' => $this->callback('mpesa.status_result_url'),
+            'Remarks'                => 'Transaction Status request',
+            'QueueTimeOutURL'        => $this->callback('mpesa.queue_timeout_callback'),
+            'ResultURL'              => $this->callback('mpesa.status_result_url'),
         ];
 
         return $this->handleRequest($body);
