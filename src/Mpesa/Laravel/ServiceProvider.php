@@ -3,10 +3,9 @@
 namespace Elimuswift\Mpesa\Laravel;
 
 use GuzzleHttp\Client;
+use Elimuswift\Mpesa\Client as Mpesa;
 use Illuminate\Support\ServiceProvider as RootProvider;
-use Elimuswift\Mpesa\C2B\Identity;
 use Elimuswift\Mpesa\C2B\Registrar;
-use Elimuswift\Mpesa\C2B\Charge;
 use Elimuswift\Mpesa\Contracts\CacheStore;
 use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 use Elimuswift\Mpesa\Engine\Core;
@@ -21,12 +20,12 @@ class ServiceProvider extends RootProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
+            __DIR__.'/../../../assets/config/mpesa.php' => config_path('mpesa.php'),
         ]);
         $this->publishes([
-            __DIR__ . '/../../../assets/storage/mpesa_public.key' => storage_path('mpesa_public.key'),
+            __DIR__.'/../../../assets/storage/mpesa_public.key' => storage_path('mpesa_public.key'),
         ]);
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
     }
 
     /**
@@ -36,7 +35,7 @@ class ServiceProvider extends RootProvider
     {
         $this->bindInstances();
         $this->registerFacades();
-        $this->mergeConfigFrom(__DIR__ . '/../../../assets/config/mpesa.php', 'mpesa');
+        $this->mergeConfigFrom(__DIR__.'/../../../assets/config/mpesa.php', 'mpesa');
     }
 
     private function bindInstances()
@@ -53,14 +52,8 @@ class ServiceProvider extends RootProvider
 
     private function registerFacades()
     {
-        $this->app->bind('mpesa.charge', function () {
-            return $this->app->make(Charge::class);
-        });
-        $this->app->bind('mpesa.registrar', function () {
-            return $this->app->make(Registrar::class);
-        });
-        $this->app->bind('mpesa.identity', function () {
-            return $this->app->make(Identity::class);
+        $this->app->bind('mpesa.client', function () {
+            return $this->app->make(Mpesa::class);
         });
     }
 }

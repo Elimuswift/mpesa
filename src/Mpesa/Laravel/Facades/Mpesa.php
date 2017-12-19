@@ -5,7 +5,7 @@ namespace Elimuswift\Mpesa\Laravel\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class Mpesa
+ * Class Mpesa.
  *
  * @category PHP
  *
@@ -20,6 +20,6 @@ class Mpesa extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'mpesa';
+        return 'mpesa.client';
     }
 }
