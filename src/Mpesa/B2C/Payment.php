@@ -41,7 +41,7 @@ class Payment
             throw new \InvalidArgumentException('The amount must be numeric');
         }
 
-        $this->amount = \number_format($amount, 2);
+        $this->amount =(float) \number_format($amount, 2);
 
         return $this;
     }
@@ -87,7 +87,7 @@ class Payment
      */
     public function transact()
     {
-        $paybill    = $this->engine->config->get('mpesa.pay_bill');
+        $paybill    = $this->engine->config->get('mpesa.paybill_number');
         $initiator  = $this->engine->config->get('mpesa.initiator');
         $credential = (new Generator($this->engine))->generate();
         $body       = [

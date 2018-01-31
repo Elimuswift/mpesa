@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'stk_callback' => 'mpesa/callbacks/stk-push/response',
+    'stk_callback' => 'mpesa/callbacks/stk-push/result',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'id_validation_callback' => 'mpesa/callbacks/confirmation/response',
+    'id_validation_callback' => 'mpesa/callbacks/confirmation/result',
 
     /*
     |--------------------------------------------------------------------------
@@ -159,7 +159,7 @@ return [
 
     'account_balance_result_url' => 'mpesa/callbacks/account-balance/result',
     'b2c_result_url' => 'mpesa/callbacks/b2c/result',
-    'b2b_result_url' => 'mpesa/callbacks/b2b-/result',
+    'b2b_result_url' => 'mpesa/callbacks/b2b/result',
     'reversal_result_url' => 'mpesa/callbacks/reversal/result',
     'status_result_url' => 'mpesa/callbacks/status/result',
 

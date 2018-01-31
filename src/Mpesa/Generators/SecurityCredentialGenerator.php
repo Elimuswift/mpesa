@@ -37,8 +37,8 @@ class SecurityCredentialGenerator implements GeneratorInterface
         $publicKey = \file_get_contents($this->mpesa->config->get('mpesa.public_key'));
         $password  = $this->mpesa->config->get('mpesa.initiator_password');
         \openssl_public_encrypt($password, $encrypted, $publicKey, OPENSSL_PKCS1_PADDING);
-        $securityCredential = \base64_encode($encrypted);
+        return \base64_encode($encrypted);
 
-        return $securityCredential;
+    
     }
 }
