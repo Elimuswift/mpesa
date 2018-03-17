@@ -20,7 +20,7 @@ trait MakesRequest
 
             return \json_decode($response->getBody()->getContents());
         } catch (RequestException $exception) {
-            return \json_decode($exception->getResponse()->getBody()->getContents());
+            return \json_decode($exception->getResponse());
         }
     }
 
@@ -35,8 +35,8 @@ trait MakesRequest
     {
         return $this->engine->client->request('POST', $this->endpoint, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->engine->auth->authenticate(),
-                'Content-Type'  => 'application/json',
+                'Authorization' => 'Bearer '.$this->engine->auth->authenticate(),
+                'Content-Type' => 'application/json',
             ],
             'json' => $body,
         ]);
@@ -53,7 +53,7 @@ trait MakesRequest
      **/
     protected function callback($option)
     {
-        $config   = $this->engine->config;
+        $config = $this->engine->config;
         $callback = \trim($config->get($option), '/');
         if ($config->get('mpesa.default_callbacks')) {
             $endpoint = \trim($config->get('mpesa.callbacks_endpoint'), '/');

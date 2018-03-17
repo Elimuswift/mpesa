@@ -42,6 +42,7 @@
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.2",
         "illuminate/support": "^5.0",
+        "paragonie/easyrsa": "^0.5",
         "nesbot/carbon": "~1.21"
     },
     "require-dev": {
