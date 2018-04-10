@@ -11,9 +11,6 @@ use Elimuswift\Mpesa\Contracts\ConfigurationStore;
 use Elimuswift\Mpesa\Engine\Core;
 use Elimuswift\Mpesa\Laravel\Stores\LaravelCache;
 use Elimuswift\Mpesa\Laravel\Stores\LaravelConfig;
-use GuzzleHttp\Handler\CurlHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleTor\Middleware;
 
 class ServiceProvider extends RootProvider
 {
@@ -48,12 +45,8 @@ class ServiceProvider extends RootProvider
         $this->app->bind(Core::class, function ($app) {
             $config = $app->make(ConfigurationStore::class);
             $cache = $app->make(CacheStore::class);
-            $stack = new HandlerStack();
-            $stack->setHandler(new CurlHandler());
-            $stack->push(Middleware::tor());
-            //$client = new Client(['handler' => $stack]);
             $client = new Client();
-            
+
             return new Core($client, $config, $cache);
         });
     }

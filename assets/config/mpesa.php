@@ -59,6 +59,7 @@ return [
     |
      */
     'default_callbacks' => true,
+
     'callbacks_endpoint' => env('MPESA_CALLBACKS_ENDPOINT', 'https://sandbox.elimuswift.com'),
 
    /*
@@ -66,7 +67,7 @@ return [
     | STK Callback URL
     |--------------------------------------------------------------------------
     |
-    | This is a fully qualified endpoint that will be be queried by Safaricom's
+    | This is the endpoint that will be be queried by Safaricom's
     | API on completion or failure of the transaction.
     |
     */
@@ -75,11 +76,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Identity Validation Callback URL
+    | Validation Callback URL
     |--------------------------------------------------------------------------
     |
-    | This is a fully qualified endpoint that will be be queried by Safaricom's
-    | API on completion or failure of the transaction.
+    | This is the endpoint that will be be queried by Safaricom's
+    | API for validation of the tansaction
     |
     */
 
@@ -93,20 +94,6 @@ return [
     |
      */
     'securityCredential' => '',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Callback Method
-    |--------------------------------------------------------------------------
-    |
-    | This is the request method to be used on the Callback URL on communication
-    | with your server.
-    |
-    | e.g. GET | POST
-    |
-    */
-
-    'callback_method' => 'POST',
 
     /*
     |--------------------------------------------------------------------------

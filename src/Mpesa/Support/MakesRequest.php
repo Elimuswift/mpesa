@@ -44,8 +44,7 @@ trait MakesRequest
 
     /**
      * Generate the result callback url.
-     *
-     * The generated url is based on the values provided in the configuration
+     * The generated url is based on the values provided in the configuration.
      *
      * @param string $option
      *
@@ -54,9 +53,9 @@ trait MakesRequest
     protected function callback($option)
     {
         $config = $this->engine->config;
-        $callback = \trim($config->get($option), '/');
+        $callback = \ltrim($config->get($option), '/');
         if ($config->get('mpesa.default_callbacks')) {
-            $endpoint = \trim($config->get('mpesa.callbacks_endpoint'), '/');
+            $endpoint = \rtrim($config->get('mpesa.callbacks_endpoint'), '/');
             $callback = "{$endpoint}/{$callback}";
         }
 
